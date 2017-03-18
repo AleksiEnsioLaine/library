@@ -1,14 +1,21 @@
 package library;
 
+/*
+ * Book constructor and methods
+ * @author Aleksi Laine
+ */
 public class Book {
 	final int MAXIMUM_PAGES = 3000;
-	public Book() {
-		int pages, yearPublished;
-		String title, author;
-	}
-	public void setPages(int p){
-		pages = p;
+	private int pages, yearPublishe, bookId;
+	private String title, author, genre = "";
+	double price;
+	
+	public void setTitle(String p){
+		this.title = p;
 		System.out.println("The Book pages set to " + p);
+	}
+	void getTitle(){
+		System.out.println(this.title);
 	}
 	
 }

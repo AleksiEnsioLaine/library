@@ -10,7 +10,17 @@ public class MainClass {
 	public static void main(String[] args) {
 		
 		Book warAndPeace = new Book();
-		warAndPeace.setPages(1000);
+		Book javaBasics = new Book();
+		
+		Customer andy = new Customer(666);
+		warAndPeace.setTitle("War and Peace");
+		
+		javaBasics.setTitle("Java 101");
+		
+		warAndPeace.getTitle();
+		javaBasics.getTitle();
+		
+		andy.setName("Smith", "Andy");
 	}
 
 }
