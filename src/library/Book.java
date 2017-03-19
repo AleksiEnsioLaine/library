@@ -5,17 +5,53 @@ package library;
  * @author Aleksi Laine
  */
 public class Book {
+
 	final int MAXIMUM_PAGES = 3000;
-	private int pages, yearPublishe, bookId;
+	private int pages, yearPublished, bookId;
 	private String title, author, genre = "";
 	double price;
+	Book(){
+	}
+	Book(int pages, int yearPublished, int bookId, String title, String author, String genre, double price){
+		setTitle(title);
+		setAuthor(author);
+		setGenre(genre);
+		setPages(pages);
+		setYearPublished(yearPublished);
+		setBookId(bookId);
+		setPrice(price);
+	}
 	
-	public void setTitle(String p){
+	void setTitle(String p){
 		this.title = p;
 		System.out.println("The Book pages set to " + p);
 	}
-	void getTitle(){
+	void setAuthor(String a){
+		this.author = a;
+	}
+	void setGenre(String g){
+		this.genre = g;
+	}
+	void setPages(int p){
+		this.pages = p;
+	}
+	void setYearPublished(int y){
+		this.yearPublished = y;
+	}
+	void setBookId(int i){
+		this.bookId = i;
+	}
+	void setPrice(double p){
+		this.price = p;
+	}
+	
+	String getTitle(){
+		return this.title;
+	}
+	
+	void getTitlePrint(){
 		System.out.println(this.title);
 	}
+	
 	
 }

@@ -21,6 +21,9 @@ public class MainClass {
 		javaBasics.getTitle();
 		
 		andy.setName("Smith", "Andy");
+		
+		Book programmingForDummies = new Book(1000, 2000, 444, "Programming for dummies", "John Dummy", "educative", 40.0);
+		programmingForDummies.getTitlePrint();
 	}
 
 }
