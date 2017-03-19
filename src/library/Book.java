@@ -31,7 +31,7 @@ public class Book {
 	
 	void setTitle(String p){
 		this.title = p;
-		System.out.println("The Book pages set to " + p);
+		System.out.println("The Book title set to " + p);
 	}
 	void setAuthor(String a){
 		this.author = a;

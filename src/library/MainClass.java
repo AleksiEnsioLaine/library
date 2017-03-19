@@ -1,8 +1,8 @@
 
 package library;
-
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -29,7 +29,8 @@ public class MainClass extends JFrame{
 	
 	static JTable tableBooks;
 	static JButton btnAddBook;
-
+	static JLabel info;
+	static MyEventHandler commandHandler;
 	
 	public MainClass() {
 		setTitle("Library Manager 3000");
@@ -38,17 +39,18 @@ public class MainClass extends JFrame{
 		setBounds(0,0,550,500);
 		setLocationRelativeTo(null);
 		
-		JButton btnAddBook = new JButton("Add book");
+		btnAddBook = new JButton("Add book");
 		btnAddBook.setBounds(192, 32, 157, 25);
 		getContentPane().add(btnAddBook);
+		
 		
 		JButton btnAddCustomer = new JButton("Add Customer");
 		btnAddCustomer.setBounds(192, 70, 157, 25);
 		getContentPane().add(btnAddCustomer);
 		
-		JLabel lblInfoLabel = new JLabel("info label");
-		lblInfoLabel.setBounds(75, 350, 389, 16);
-		getContentPane().add(lblInfoLabel);
+		JLabel info = new JLabel("info label");
+		info.setBounds(75, 350, 389, 16);
+		getContentPane().add(info);
 		
 		tableBooks = new JTable();
 		tableBooks.setModel(new DefaultTableModel(
@@ -63,6 +65,7 @@ public class MainClass extends JFrame{
 	}
 	private class MyEventHandler implements ActionListener{
 		
+
 			public void actionPerformed (ActionEvent myEvent){
 				
 				if (myEvent.getSource() == btnAddBook){
