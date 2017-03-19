@@ -12,7 +12,7 @@ public class MainClass {
 		Book warAndPeace = new Book();
 		Book javaBasics = new Book();
 		
-		Customer andy = new Customer(666);
+		Customer andy = new Customer(666, "Smith", "Andy");
 		warAndPeace.setTitle("War and Peace");
 		
 		javaBasics.setTitle("Java 101");
@@ -20,7 +20,6 @@ public class MainClass {
 		warAndPeace.getTitle();
 		javaBasics.getTitle();
 		
-		andy.setName("Smith", "Andy");
 		
 		Book programmingForDummies = new Book(1000, 2000, 444, "Programming for dummies", "John Dummy", "educative", 40.0);
 		programmingForDummies.getTitlePrint();
