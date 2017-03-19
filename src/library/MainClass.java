@@ -1,11 +1,16 @@
+
 package library;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 /*
  * Main class of the library project
  * @author Aleksi Laine
  * 
  */
-public class MainClass {
+
+
+public class MainClass extends JFrame{
 
 	public static void main(String[] args) {
 		
