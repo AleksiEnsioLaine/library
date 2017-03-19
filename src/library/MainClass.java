@@ -24,13 +24,17 @@ public class MainClass extends JFrame{
 	
 	final static int MAX_QTY = 5; 
 	static int dbItems = 0;
+	static int customers = 0;
 	
 	static Book[] myDB = new Book[MAX_QTY]; 
-	
+	static Customer[] customerDb = new Customer[MAX_QTY];
 	static JTable tableBooks;
 	static JButton btnAddBook;
+	static JButton btnAddCustomer;
 	static JLabel info;
 	static MyEventHandler commandHandler;
+	private JLabel lblBooks;
+	private JTable tableCustomers;
 	
 	public MainClass() {
 		setTitle("Library Manager 3000");
@@ -44,65 +48,117 @@ public class MainClass extends JFrame{
 		getContentPane().add(btnAddBook);
 		
 		
-		JButton btnAddCustomer = new JButton("Add Customer");
+		btnAddCustomer = new JButton("Add Customer");
 		btnAddCustomer.setBounds(192, 70, 157, 25);
 		getContentPane().add(btnAddCustomer);
 		
 		JLabel info = new JLabel("info label");
 		info.setBounds(75, 350, 389, 16);
 		getContentPane().add(info);
-		
+		/*
+		 * Books table and header label
+		 * 
+		 */
 		tableBooks = new JTable();
 		tableBooks.setModel(new DefaultTableModel(
 			new Object[MAX_QTY][3], 
 			new String[] {"Title", "Author", "Genre"} 
 		));
-		tableBooks.setBounds(109, 163, 240, 100); 
+		tableBooks.setBounds(26, 163, 240, 80); 
 		getContentPane().add(tableBooks);
+		
+		lblBooks = new JLabel("Books");
+		lblBooks.setBounds(26, 141, 56, 16);
+		getContentPane().add(lblBooks);
+		
+		/*
+		 * Customers table and header label
+		 * 
+		 */
+		tableCustomers = new JTable();
+		tableCustomers.setModel(new DefaultTableModel(
+			new Object[MAX_QTY][2],
+			new String[] {"Firstname", "Lastname"}
+		));
+		tableCustomers.setBounds(309, 163, 160, 80);
+		getContentPane().add(tableCustomers);
+		
+		JLabel lblCustomers = new JLabel("Customers");
+		lblCustomers.setBounds(309, 141, 120, 16);
+		getContentPane().add(lblCustomers);
+		
+		populateTableBooks();
 		
 		MyEventHandler commandHandler = new MyEventHandler();
 		btnAddBook.addActionListener(commandHandler);
+		btnAddCustomer.addActionListener(commandHandler);
 	}
+	/*
+	 * populate books table 
+	 */
+	private void populateTableBooks(){
+		for (int row=0; row<dbItems; row++){
+			tableBooks.setValueAt(myDB[row].title, row, 0);  
+			tableBooks.setValueAt(myDB[row].author, row, 1);  
+			tableBooks.setValueAt(myDB[row].genre, row, 2);
+		}
+	}
+	
+	/*
+	 * populate customers table 
+	 */
+	private void populateTableCustomers(){
+		for (int row=0; row<customers; row++){
+			tableCustomers.setValueAt(customerDb[row].firstName, row, 0);  
+			tableCustomers.setValueAt(customerDb[row].lastName, row, 1);  
+		}
+	}
+	
+	/*
+	 * Event handler class 
+	 */
 	private class MyEventHandler implements ActionListener{
 		
 
 			public void actionPerformed (ActionEvent myEvent){
 				
+				/*
+				 * Handler for add book button
+				 */
 				if (myEvent.getSource() == btnAddBook){
 					if (dbItems < MAX_QTY){
 						getNewBookFromUser();
+						populateTableBooks();
 					}
 					else{
 						JOptionPane.showMessageDialog(null, "You can not add more cars in your collection", "Info", JOptionPane.INFORMATION_MESSAGE);
 					}
 						
 				}
+				/*
+				 * Handler for add Customer button
+				 */
+				if(myEvent.getSource() == btnAddCustomer){
+					if (customers < MAX_QTY){
+						getNewCustomerFromUser();
+						populateTableCustomers();
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "You can not add more cars in your collection", "Info", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
 			}
 	}
-	
-	
+	/*
+	 * get new book from user method, invoked by add book button
+	 */
 	private void getNewBookFromUser(){
-		/*
-		JTextField pages = new JTextField(10);
-	    JTextField yearPublished = new JTextField(10);
-	    JTextField bookId = new JTextField(10);
-	    */
 	    JTextField title = new JTextField(10);
 	    JTextField author = new JTextField(10);
 	    JTextField genre = new JTextField(10);
-	    //JTextField price = new JTextField(10);
  
 	    JPanel myPanel = new JPanel();
-	    /*
-	    myPanel.add(new JLabel("Pages in a book:"));
-	    myPanel.add(pages);
-	    
-	    myPanel.add(new JLabel("When published:"));
-	    myPanel.add(yearPublished);
 
-	    myPanel.add(new JLabel("bookId:"));
-	    myPanel.add(bookId);
-		*/
 	    myPanel.add(new JLabel("title:"));
 	    myPanel.add(title);
 	    
@@ -112,15 +168,35 @@ public class MainClass extends JFrame{
 	    myPanel.add(new JLabel("genre:"));
 	    myPanel.add(genre);
 	    
-	    //myPanel.add(new JLabel("price:"));
-	    //myPanel.add(price);
-	    
-	    
 	    int result = JOptionPane.showConfirmDialog(null, myPanel, "Enter info for new book", JOptionPane.OK_CANCEL_OPTION);
 	    
 	    if (result == JOptionPane.OK_OPTION) {
 	    	myDB[dbItems] = new Book( title.getText(), author.getText(), genre.getText()) ;	
 	    	++dbItems;
+	    }
+	}
+	
+	/*
+	 * get new customer from user method, invoked by add book button
+	 */
+	private void getNewCustomerFromUser(){
+	    JTextField firstName = new JTextField(10);
+	    JTextField lastName = new JTextField(10);
+ 
+	    JPanel myPanel = new JPanel();
+
+	    myPanel.add(new JLabel("firstname:"));
+	    myPanel.add(firstName);
+	    
+	    myPanel.add(new JLabel("lastname:"));
+	    myPanel.add(lastName);
+	    
+	    
+	    int result = JOptionPane.showConfirmDialog(null, myPanel, "Enter info for new book", JOptionPane.OK_CANCEL_OPTION);
+	    
+	    if (result == JOptionPane.OK_OPTION) {
+	    	customerDb[customers] = new Customer( firstName.getText(), lastName.getText()) ;	
+	    	++customers;
 	    }
 	}
 
@@ -129,6 +205,8 @@ public class MainClass extends JFrame{
 		MainClass gui = new MainClass();
 		gui.setVisible(true);
 	/*	
+	 * some alpha testing
+	 * 
 		Book warAndPeace = new Book();
 		Book javaBasics = new Book();
 		

@@ -10,6 +10,10 @@ public class Customer {
 	String lastName, firstName = "";
 	int customerId;
 	
+	Customer( String lastName, String firstName){
+		this.setName(lastName, firstName);
+	}
+	
 	Customer(int id, String lastName, String firstName){
 		this.setId(id);
 		this.setName(lastName, firstName);

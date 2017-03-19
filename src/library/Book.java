@@ -7,8 +7,8 @@ package library;
 public class Book {
 
 	final int MAXIMUM_PAGES = 3000;
-	private int pages, yearPublished, bookId;
-	private String title, author, genre = "";
+	int pages, yearPublished, bookId;
+	String title, author, genre = "";
 	double price;
 	Book(){
 	}
