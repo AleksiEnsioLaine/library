@@ -23,10 +23,10 @@ import javax.swing.table.DefaultTableModel;
 public class MainClass extends JFrame{
 	
 	final static int MAX_QTY = 5; 
-	static int dbItems = 0;
+	static int books = 0;
 	static int customers = 0;
 	
-	static Book[] myDB = new Book[MAX_QTY]; 
+	static Book[] booksDb = new Book[MAX_QTY]; 
 	static Customer[] customerDb = new Customer[MAX_QTY];
 	static JTable tableBooks;
 	static JButton btnAddBook;
@@ -56,6 +56,7 @@ public class MainClass extends JFrame{
 		info.setBounds(75, 350, 389, 16);
 		getContentPane().add(info);
 		/*
+		 * 
 		 * Books table and header label
 		 * 
 		 */
@@ -97,10 +98,10 @@ public class MainClass extends JFrame{
 	 * populate books table 
 	 */
 	private void populateTableBooks(){
-		for (int row=0; row<dbItems; row++){
-			tableBooks.setValueAt(myDB[row].title, row, 0);  
-			tableBooks.setValueAt(myDB[row].author, row, 1);  
-			tableBooks.setValueAt(myDB[row].genre, row, 2);
+		for (int row=0; row<books; row++){
+			tableBooks.setValueAt(booksDb[row].title, row, 0);  
+			tableBooks.setValueAt(booksDb[row].author, row, 1);  
+			tableBooks.setValueAt(booksDb[row].genre, row, 2);
 		}
 	}
 	
@@ -126,7 +127,7 @@ public class MainClass extends JFrame{
 				 * Handler for add book button
 				 */
 				if (myEvent.getSource() == btnAddBook){
-					if (dbItems < MAX_QTY){
+					if (books < MAX_QTY){
 						getNewBookFromUser();
 						populateTableBooks();
 					}
@@ -171,8 +172,8 @@ public class MainClass extends JFrame{
 	    int result = JOptionPane.showConfirmDialog(null, myPanel, "Enter info for new book", JOptionPane.OK_CANCEL_OPTION);
 	    
 	    if (result == JOptionPane.OK_OPTION) {
-	    	myDB[dbItems] = new Book( title.getText(), author.getText(), genre.getText()) ;	
-	    	++dbItems;
+	    	booksDb[books] = new Book( title.getText(), author.getText(), genre.getText()) ;	
+	    	++books;
 	    }
 	}
 	

@@ -6,19 +6,19 @@ package library;
  */
 public class Book {
 
-	final int MAXIMUM_PAGES = 3000;
-	int pages, yearPublished, bookId;
+	//final int MAXIMUM_PAGES = 3000;
+	//int pages, yearPublished, bookId;
 	String title, author, genre = "";
 	double price;
-	Book(){
-	}
+	//Book(){
+	//}
 	
 	public Book(String title, String author, String genre) {
 		setTitle(title);
 		setAuthor(author);
 		setGenre(genre);
 	}
-	
+	/*
 	Book(int pages, int yearPublished, int bookId, String title, String author, String genre, double price){
 		setTitle(title);
 		setAuthor(author);
@@ -28,17 +28,28 @@ public class Book {
 		setBookId(bookId);
 		setPrice(price);
 	}
-	
+	*/
 	void setTitle(String p){
 		this.title = p;
 		System.out.println("The Book title set to " + p);
 	}
+	
 	void setAuthor(String a){
 		this.author = a;
 	}
+	
 	void setGenre(String g){
 		this.genre = g;
 	}
+	
+	String getTitle(){
+		return this.title;
+	}
+	
+	void getTitlePrint(){
+		System.out.println(this.title);
+	}
+	/*
 	void setPages(int p){
 		this.pages = p;
 	}
@@ -51,14 +62,9 @@ public class Book {
 	void setPrice(double p){
 		this.price = p;
 	}
+	*/
 	
-	String getTitle(){
-		return this.title;
-	}
 	
-	void getTitlePrint(){
-		System.out.println(this.title);
-	}
 	
 	
 }
