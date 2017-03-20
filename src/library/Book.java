@@ -13,10 +13,11 @@ public class Book {
 	//Book(){
 	//}
 	
-	public Book(String title, String author, String genre) {
+	public Book(String title, String author, String genre, double price) {
 		setTitle(title);
 		setAuthor(author);
 		setGenre(genre);
+		setPrice(price);
 	}
 	/*
 	Book(int pages, int yearPublished, int bookId, String title, String author, String genre, double price){
@@ -59,10 +60,12 @@ public class Book {
 	void setBookId(int i){
 		this.bookId = i;
 	}
+	*/
 	void setPrice(double p){
 		this.price = p;
+		System.out.print(this.price);
 	}
-	*/
+	
 	
 	
 	

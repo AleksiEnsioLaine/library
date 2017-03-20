@@ -62,8 +62,8 @@ public class MainClass extends JFrame{
 		 */
 		tableBooks = new JTable();
 		tableBooks.setModel(new DefaultTableModel(
-			new Object[MAX_QTY][3], 
-			new String[] {"Title", "Author", "Genre"} 
+			new Object[MAX_QTY][4], 
+			new String[] {"Title", "Author", "Genre", "Price"} 
 		));
 		tableBooks.setBounds(26, 163, 240, 80); 
 		getContentPane().add(tableBooks);
@@ -102,6 +102,7 @@ public class MainClass extends JFrame{
 			tableBooks.setValueAt(booksDb[row].title, row, 0);  
 			tableBooks.setValueAt(booksDb[row].author, row, 1);  
 			tableBooks.setValueAt(booksDb[row].genre, row, 2);
+			tableBooks.setValueAt(booksDb[row].price, row, 3);
 		}
 	}
 	
@@ -157,26 +158,53 @@ public class MainClass extends JFrame{
 	    JTextField title = new JTextField(10);
 	    JTextField author = new JTextField(10);
 	    JTextField genre = new JTextField(10);
+	    JTextField price = new JTextField(10);
  
 	    JPanel myPanel = new JPanel();
 
-	    myPanel.add(new JLabel("title:"));
+	    myPanel.add(new JLabel("Title:"));
 	    myPanel.add(title);
 	    
-	    myPanel.add(new JLabel("author:"));
+	    myPanel.add(new JLabel("Author:"));
 	    myPanel.add(author);
 	    
-	    myPanel.add(new JLabel("genre:"));
+	    myPanel.add(new JLabel("Genre:"));
 	    myPanel.add(genre);
 	    
-	    int result = JOptionPane.showConfirmDialog(null, myPanel, "Enter info for new book", JOptionPane.OK_CANCEL_OPTION);
+	    myPanel.add(new JLabel("Price:"));
+	    myPanel.add(price);
 	    
+	    int result = JOptionPane.showConfirmDialog(null, myPanel, "Enter info for new book", JOptionPane.OK_CANCEL_OPTION);
+	    try{
 	    if (result == JOptionPane.OK_OPTION) {
-	    	booksDb[books] = new Book( title.getText(), author.getText(), genre.getText()) ;	
+	    	if(title.getText().length() == 0){
+	    		System.out.print("You didn't enter name of the book");
+	    	}
+	    	else {
+	    	booksDb[books] = new Book( title.getText(), author.getText(), genre.getText(), Double.parseDouble(price.getText())) ;
 	    	++books;
+	    	}
+	    }
+	    
+	    }
+	    catch(NumberFormatException e){
+	    	e.printStackTrace();
+	    	System.out.print("Moron, do not put other than numbers in price");
+	    }
+	    catch(NullPointerException e){
+	    	e.printStackTrace();
+	    	System.out.print("You didn't fill all fields");
 	    }
 	}
-	
+	/*
+	 * try {
+    	cashRecieved = Double.parseDouble(CashNeeded.getText());
+		} catch (NumberFormatException e) {
+    	e.printStackTrace();
+    // 		handle the error
+		}
+	 * 
+	 */
 	/*
 	 * get new customer from user method, invoked by add book button
 	 */
