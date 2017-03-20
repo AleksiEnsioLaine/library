@@ -12,9 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 /*
- * Main class of the library project
+ * Main class of the library project + gui
  * @author Aleksi Laine 
- * 
  */
 
 
@@ -55,6 +54,7 @@ public class MainClass extends JFrame{
 		JLabel info = new JLabel("info label");
 		info.setBounds(75, 350, 389, 16);
 		getContentPane().add(info);
+		
 		/*
 		 * 
 		 * Books table and header label
@@ -153,6 +153,7 @@ public class MainClass extends JFrame{
 	}
 	/*
 	 * get new book from user method, invoked by add book button
+	 * pops up new window where user can input data
 	 */
 	private void getNewBookFromUser(){
 	    JTextField title = new JTextField(10);
@@ -190,10 +191,6 @@ public class MainClass extends JFrame{
 	    catch(NumberFormatException e){
 	    	e.printStackTrace();
 	    	System.out.print("Moron, do not put other than numbers in price");
-	    }
-	    catch(NullPointerException e){
-	    	e.printStackTrace();
-	    	System.out.print("You didn't fill all fields");
 	    }
 	}
 	/*
