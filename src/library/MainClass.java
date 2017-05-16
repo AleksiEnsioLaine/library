@@ -37,6 +37,8 @@ public class MainClass extends JFrame{
 	
 	public MainClass() {
 		setTitle("Library Manager 3000");
+		
+		// kill program if x is pressed else it stays hanging
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setBounds(0,0,550,500);
@@ -56,9 +58,7 @@ public class MainClass extends JFrame{
 		getContentPane().add(info);
 		
 		/*
-		 * 
 		 * Books table and header label
-		 * 
 		 */
 		tableBooks = new JTable();
 		tableBooks.setModel(new DefaultTableModel(
@@ -73,8 +73,7 @@ public class MainClass extends JFrame{
 		getContentPane().add(lblBooks);
 		
 		/*
-		 * Customers table and header label
-		 * 
+		 * Customers table and header label 
 		 */
 		tableCustomers = new JTable();
 		tableCustomers.setModel(new DefaultTableModel(
