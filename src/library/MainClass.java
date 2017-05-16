@@ -34,6 +34,7 @@ public class MainClass extends JFrame{
 	static MyEventHandler commandHandler;
 	private JLabel lblBooks;
 	private JTable tableCustomers;
+	private JTable tableLoans;
 	
 	public MainClass() {
 		setTitle("Library Manager 3000");
@@ -53,10 +54,6 @@ public class MainClass extends JFrame{
 		btnAddCustomer.setBounds(192, 70, 157, 25);
 		getContentPane().add(btnAddCustomer);
 		
-		JLabel info = new JLabel("info label");
-		info.setBounds(75, 350, 389, 16);
-		getContentPane().add(info);
-		
 		/*
 		 * Books table and header label
 		 */
@@ -65,6 +62,7 @@ public class MainClass extends JFrame{
 			new Object[MAX_QTY][4], 
 			new String[] {"Title", "Author", "Genre", "Price"} 
 		));
+		tableBooks.setEnabled(false);
 		tableBooks.setBounds(26, 163, 240, 80); 
 		getContentPane().add(tableBooks);
 		
@@ -80,6 +78,7 @@ public class MainClass extends JFrame{
 			new Object[MAX_QTY][2],
 			new String[] {"Firstname", "Lastname"}
 		));
+		tableCustomers.setEnabled(false);
 		tableCustomers.setBounds(309, 163, 160, 80);
 		getContentPane().add(tableCustomers);
 		
@@ -87,12 +86,33 @@ public class MainClass extends JFrame{
 		lblCustomers.setBounds(309, 141, 120, 16);
 		getContentPane().add(lblCustomers);
 		
+		tableLoans = new JTable();
+		tableLoans.setModel(new DefaultTableModel(
+			new Object[MAX_QTY][4],
+			new String[] {"book", "loaner-firstname", "loaner-lastname", "date"}
+		));
+		/*
+		 * Loans table and header label
+		 */
+		tableLoans.setEnabled(false);
+		tableLoans.setBounds(26, 317, 443, 80);
+		getContentPane().add(tableLoans);
+		
+		JButton btnNewLoan = new JButton("Add loan");
+		btnNewLoan.setBounds(192, 106, 157, 23);
+		getContentPane().add(btnNewLoan);
+		
+		JLabel lblNewLabel = new JLabel("Loans");
+		lblNewLabel.setBounds(26, 292, 46, 14);
+		getContentPane().add(lblNewLabel);
+		
 		populateTableBooks();
 		
 		MyEventHandler commandHandler = new MyEventHandler();
 		btnAddBook.addActionListener(commandHandler);
 		btnAddCustomer.addActionListener(commandHandler);
 	}
+	
 	/*
 	 * populate books table 
 	 */
@@ -132,7 +152,7 @@ public class MainClass extends JFrame{
 						populateTableBooks();
 					}
 					else{
-						JOptionPane.showMessageDialog(null, "You can not add more cars in your collection", "Info", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Books table full!", "Info", JOptionPane.INFORMATION_MESSAGE);
 					}
 						
 				}
@@ -145,7 +165,7 @@ public class MainClass extends JFrame{
 						populateTableCustomers();
 					}
 					else{
-						JOptionPane.showMessageDialog(null, "You can not add more cars in your collection", "Info", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Customers table full!", "Info", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			}
@@ -179,6 +199,7 @@ public class MainClass extends JFrame{
 	    if (result == JOptionPane.OK_OPTION) {
 	    	if(title.getText().length() == 0){
 	    		System.out.print("You didn't enter name of the book");
+	    		JOptionPane.showMessageDialog(null, "You didn't enter name of the book", "ERROR", JOptionPane.INFORMATION_MESSAGE);
 	    	}
 	    	else {
 	    	booksDb[books] = new Book( title.getText(), author.getText(), genre.getText(), Double.parseDouble(price.getText())) ;
@@ -189,7 +210,7 @@ public class MainClass extends JFrame{
 	    }
 	    catch(NumberFormatException e){
 	    	e.printStackTrace();
-	    	System.out.print("Moron, do not put other than numbers in price");
+	    	JOptionPane.showMessageDialog(null, "Moron, do not put other than numbers in price", "ERROR", JOptionPane.INFORMATION_MESSAGE);
 	    }
 	}
 	/*

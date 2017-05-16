@@ -13,5 +13,6 @@ public class Loan {
 	book = bookToLoan;
 	loanStartDate =  new Date();
 	}
+	
 
 }
