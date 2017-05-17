@@ -8,10 +8,10 @@ public class Loan {
 	Book book;
 	Date loanStartDate;
 	
-	public Loan(Customer cust, Book bookToLoan) {
+	public Loan(Customer cust, Book bookToLoan, Date loanDate) {
 	customer = cust;
 	book = bookToLoan;
-	loanStartDate =  new Date();
+	loanStartDate =  loanDate;
 	}
 	
 

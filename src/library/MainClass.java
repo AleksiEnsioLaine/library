@@ -1,16 +1,24 @@
 
 package library;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+
 /*
  * Main class of the library project + gui
  * @author Aleksi Laine 
@@ -21,30 +29,36 @@ import javax.swing.table.DefaultTableModel;
 @SuppressWarnings("serial")
 public class MainClass extends JFrame{
 	
+	//Max rows in tables and arrays
 	final static int MAX_QTY = 5; 
+	
+	//counters for table rows
 	static int books = 0;
 	static int customers = 0;
+	static int loans = 0;
 	
+	//hoax database
 	static Book[] booksDb = new Book[MAX_QTY]; 
 	static Customer[] customerDb = new Customer[MAX_QTY];
-	static JTable tableBooks;
-	static JButton btnAddBook;
-	static JButton btnAddCustomer;
-	static JLabel info;
-	static MyEventHandler commandHandler;
-	private JLabel lblBooks;
-	private JTable tableCustomers;
-	private JTable tableLoans;
+	static Loan[] loansDb = new Loan[MAX_QTY]; 
 	
+	
+	static JTable tableBooks, tableCustomers, tableLoans;
+	static JButton btnAddBook, btnAddCustomer, btnAddLoan;
+	static JLabel info, lblBooks;
+	static MyEventHandler commandHandler;
 	public MainClass() {
 		setTitle("Library Manager 3000");
 		
-		// kill program if x is pressed else it stays hanging
+		// kill program if x is pressed else it stays hanging in processes
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
 		getContentPane().setLayout(null);
 		setBounds(0,0,550,500);
 		setLocationRelativeTo(null);
 		
+		
+		//Buttons
 		btnAddBook = new JButton("Add book");
 		btnAddBook.setBounds(192, 32, 157, 25);
 		getContentPane().add(btnAddBook);
@@ -54,63 +68,75 @@ public class MainClass extends JFrame{
 		btnAddCustomer.setBounds(192, 70, 157, 25);
 		getContentPane().add(btnAddCustomer);
 		
+		btnAddLoan = new JButton("Add Loan");
+		btnAddLoan.setBounds(192, 106, 157, 23);
+		getContentPane().add(btnAddLoan);
+		
 		/*
 		 * Books table and header label
 		 */
-		tableBooks = new JTable();
-		tableBooks.setModel(new DefaultTableModel(
-			new Object[MAX_QTY][4], 
-			new String[] {"Title", "Author", "Genre", "Price"} 
-		));
-		tableBooks.setEnabled(false);
-		tableBooks.setBounds(26, 163, 240, 80); 
-		getContentPane().add(tableBooks);
 		
 		lblBooks = new JLabel("Books");
 		lblBooks.setBounds(26, 141, 56, 16);
 		getContentPane().add(lblBooks);
 		
+		tableBooks = new JTable();
+		tableBooks.setModel(new DefaultTableModel(
+			new Object[MAX_QTY][4], 
+			new String[] {"Title", "Author", "Genre", "Price"} 
+		));
+		
+		tableBooks.setEnabled(false);
+		tableBooks.setBounds(26, 163, 240, 80); 
+		getContentPane().add(tableBooks);
+		
 		/*
-		 * Customers table and header label 
+		 * Customers label and table
 		 */
+		
+		JLabel lblCustomers = new JLabel("Customers");
+		lblCustomers.setBounds(309, 141, 120, 16);
+		getContentPane().add(lblCustomers);
+
 		tableCustomers = new JTable();
 		tableCustomers.setModel(new DefaultTableModel(
 			new Object[MAX_QTY][2],
 			new String[] {"Firstname", "Lastname"}
 		));
+		
 		tableCustomers.setEnabled(false);
 		tableCustomers.setBounds(309, 163, 160, 80);
+		
 		getContentPane().add(tableCustomers);
 		
-		JLabel lblCustomers = new JLabel("Customers");
-		lblCustomers.setBounds(309, 141, 120, 16);
-		getContentPane().add(lblCustomers);
 		
-		tableLoans = new JTable();
-		tableLoans.setModel(new DefaultTableModel(
-			new Object[MAX_QTY][4],
-			new String[] {"book", "loaner-firstname", "loaner-lastname", "date"}
-		));
 		/*
 		 * Loans table and header label
 		 */
-		tableLoans.setEnabled(false);
-		tableLoans.setBounds(26, 317, 443, 80);
-		getContentPane().add(tableLoans);
-		
-		JButton btnNewLoan = new JButton("Add loan");
-		btnNewLoan.setBounds(192, 106, 157, 23);
-		getContentPane().add(btnNewLoan);
 		
 		JLabel lblNewLabel = new JLabel("Loans");
 		lblNewLabel.setBounds(26, 292, 46, 14);
 		getContentPane().add(lblNewLabel);
 		
-		populateTableBooks();
+		tableLoans = new JTable();
+		tableLoans.setModel(new DefaultTableModel(
+			new Object[MAX_QTY][3],
+			new String[] {"book", "customer", "date"}
+		));
+		tableLoans.setEnabled(false);
+		tableLoans.setBounds(26, 317, 440, 80);
 		
+		tableLoans.getColumnModel().getColumn(0).setPreferredWidth(180);
+		tableLoans.getColumnModel().getColumn(1).setPreferredWidth(180);
+		tableLoans.getColumnModel().getColumn(2).setPreferredWidth(80);
+		
+		getContentPane().add(tableLoans);
+		
+		//Event handler
 		MyEventHandler commandHandler = new MyEventHandler();
 		btnAddBook.addActionListener(commandHandler);
 		btnAddCustomer.addActionListener(commandHandler);
+		btnAddLoan.addActionListener(commandHandler);
 	}
 	
 	/*
@@ -135,6 +161,16 @@ public class MainClass extends JFrame{
 		}
 	}
 	
+	
+	// populate loans table
+	private void populateTableLoans(){
+		for (int row=0; row<customers; row++){
+			tableLoans.setValueAt(loansDb[row].customer.firstName, row, 0);  
+			tableLoans.setValueAt(loansDb[row].book.title, row, 1);
+			tableLoans.setValueAt(loansDb[row].loanStartDate, row, 2);
+		}
+	}
+	
 	/*
 	 * Event handler class 
 	 */
@@ -156,6 +192,7 @@ public class MainClass extends JFrame{
 					}
 						
 				}
+				
 				/*
 				 * Handler for add Customer button
 				 */
@@ -166,6 +203,20 @@ public class MainClass extends JFrame{
 					}
 					else{
 						JOptionPane.showMessageDialog(null, "Customers table full!", "Info", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+				
+				/*
+				 * Handler for add Loan button
+				 */
+				if(myEvent.getSource() == btnAddLoan){
+					if (loans < MAX_QTY){
+						getNewLoanFromUser();
+						populateTableLoans();
+						//System.out.println(loansDb[0].book);
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Loans table full!", "Info", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			}
@@ -213,15 +264,7 @@ public class MainClass extends JFrame{
 	    	JOptionPane.showMessageDialog(null, "Moron, do not put other than numbers in price", "ERROR", JOptionPane.INFORMATION_MESSAGE);
 	    }
 	}
-	/*
-	 * try {
-    	cashRecieved = Double.parseDouble(CashNeeded.getText());
-		} catch (NumberFormatException e) {
-    	e.printStackTrace();
-    // 		handle the error
-		}
-	 * 
-	 */
+	
 	/*
 	 * get new customer from user method, invoked by add book button
 	 */
@@ -245,28 +288,71 @@ public class MainClass extends JFrame{
 	    	++customers;
 	    }
 	}
+	
+	/*
+	 * get new loan method, invoked by add loan button
+	 */
+	private void getNewLoanFromUser(){
+
+		
+		//Customer selection list
+	    final DefaultListModel customerName = new DefaultListModel();
+
+	    for (int i = 0; customers > i; i++){
+				customerName.addElement(customerDb[i].firstName + " " + customerDb[i].lastName);
+		}
+
+	    final JList customerList = new JList(customerName);
+	    customerList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+	    customerList.setSelectedIndex(0);
+	    customerList.setVisibleRowCount(5);        
+
+	    JScrollPane customerListScrollPane = new JScrollPane(customerList);   
+	   
+	    //Book selection list
+	    final DefaultListModel bookName = new DefaultListModel();
+
+	    for (int i = 0; customers > i; i++){
+				bookName.addElement(booksDb[i].title);
+		}
+
+	    final JList bookList = new JList(bookName);
+	    bookList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+	    bookList.setSelectedIndex(0);
+	    bookList.setVisibleRowCount(5);        
+
+	    JScrollPane bookListScrollPane = new JScrollPane(bookList);  
+	    
+	    
+	    JPanel myPanel = new JPanel();
+
+	    myPanel.add(new JLabel("Customer:"));
+	    myPanel.add(customerListScrollPane);
+	    
+	    myPanel.add(new JLabel("Book:"));
+	    myPanel.add(bookListScrollPane);
+	    
+	    int result = JOptionPane.showConfirmDialog(null, myPanel, "Add new loan", JOptionPane.OK_CANCEL_OPTION);
+	    
+	    if (result == JOptionPane.OK_OPTION) {
+	    	int bookId = bookList.getSelectedIndex();
+	    	int customerId = customerList.getSelectedIndex();
+	    	Date loanDate = new Date();
+	    	
+	    	System.out.println(bookId + " " + customerId + " " + loanDate);
+	    
+	    
+	    	loansDb[loans] = new Loan (customerDb[customerId], booksDb[bookId], loanDate );	
+	    	++loans;
+	    }
+	    	
+	    }
+	    
+	
 
 	public static void main(String[] args) {
 		
 		MainClass gui = new MainClass();
 		gui.setVisible(true);
-	/*	
-	 * some alpha testing
-	 * 
-		Book warAndPeace = new Book();
-		Book javaBasics = new Book();
-		
-		Customer andy = new Customer(666, "Smith", "Andy");
-		warAndPeace.setTitle("War and Peace");
-		
-		javaBasics.setTitle("Java 101");
-		
-		warAndPeace.getTitle();
-		javaBasics.getTitle();
-		
-		
-		Book programmingForDummies = new Book(1000, 2000, 444, "Programming for dummies", "John Dummy", "educative", 40.0);
-		programmingForDummies.getTitlePrint();
-	*/
 	}
 }
