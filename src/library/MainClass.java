@@ -83,7 +83,7 @@ public class MainClass extends JFrame{
 		tableBooks = new JTable();
 		tableBooks.setModel(new DefaultTableModel(
 			new Object[MAX_QTY][4], 
-			new String[] {"Title", "Author", "Genre", "Price"} 
+			new String[] {"Title", "Author", "Genre", "Pages"} 
 		));
 		
 		tableBooks.setEnabled(false);
@@ -147,7 +147,7 @@ public class MainClass extends JFrame{
 			tableBooks.setValueAt(booksDb[row].title, row, 0);  
 			tableBooks.setValueAt(booksDb[row].author, row, 1);  
 			tableBooks.setValueAt(booksDb[row].genre, row, 2);
-			tableBooks.setValueAt(booksDb[row].price, row, 3);
+			tableBooks.setValueAt(booksDb[row].pages, row, 3);
 		}
 	}
 	
@@ -229,7 +229,7 @@ public class MainClass extends JFrame{
 	    JTextField title = new JTextField(10);
 	    JTextField author = new JTextField(10);
 	    JTextField genre = new JTextField(10);
-	    JTextField price = new JTextField(10);
+	    JTextField pages = new JTextField(10);
  
 	    JPanel myPanel = new JPanel();
 
@@ -242,8 +242,8 @@ public class MainClass extends JFrame{
 	    myPanel.add(new JLabel("Genre:"));
 	    myPanel.add(genre);
 	    
-	    myPanel.add(new JLabel("Price:"));
-	    myPanel.add(price);
+	    myPanel.add(new JLabel("Pages:"));
+	    myPanel.add(pages);
 	    
 	    int result = JOptionPane.showConfirmDialog(null, myPanel, "Enter info for new book", JOptionPane.OK_CANCEL_OPTION);
 	    try{
@@ -253,7 +253,7 @@ public class MainClass extends JFrame{
 	    		JOptionPane.showMessageDialog(null, "You didn't enter name of the book", "ERROR", JOptionPane.INFORMATION_MESSAGE);
 	    	}
 	    	else {
-	    	booksDb[books] = new Book( title.getText(), author.getText(), genre.getText(), Double.parseDouble(price.getText())) ;
+	    	booksDb[books] = new Book( title.getText(), author.getText(), genre.getText(), Integer.parseInt(pages.getText()));
 	    	++books;
 	    	}
 	    }

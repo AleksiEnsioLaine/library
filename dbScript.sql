@@ -6,7 +6,7 @@ book_id int				NOT NULL AUTO_INCREMENT,
 title	varchar(255),
 author  varchar(255),
 genre	varchar(255),
-price	int,
+pages	int,
 PRIMARY KEY (book_id)
 );
 
@@ -18,6 +18,6 @@ lastname	varchar(255),
 PRIMARY KEY (customer_id)
 );
 
-INSERT INTO books (title, author, genre, price) VALUES ("The book", "Some Wise Guy", "Shitty", 666);
+INSERT INTO books (title, author, genre, pages) VALUES ("The book", "Some Wise Guy", "Shitty", 666);
 
 INSERT INTO customers (firstname, lastname) VALUES ("John", "Doe");

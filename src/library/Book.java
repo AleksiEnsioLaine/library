@@ -9,15 +9,15 @@ public class Book {
 	//final int MAXIMUM_PAGES = 3000;
 	//int pages, yearPublished, bookId;
 	String title, author, genre = "";
-	double price;
+	int pages;
 	//Book(){
 	//}
 	
-	public Book(String title, String author, String genre, double price) {
+	public Book(String title, String author, String genre, int pages) {
 		setTitle(title);
 		setAuthor(author);
 		setGenre(genre);
-		setPrice(price);
+		setPages(pages);
 	}
 	/*
 	Book(int pages, int yearPublished, int bookId, String title, String author, String genre, double price){
@@ -61,9 +61,9 @@ public class Book {
 		this.bookId = i;
 	}
 	*/
-	void setPrice(double p){
-		this.price = p;
-		System.out.print(this.price);
+	void setPages(int p){
+		this.pages = p;
+		System.out.print(this.pages);
 	}
 	
 	
