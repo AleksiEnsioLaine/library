@@ -354,5 +354,7 @@ public class MainClass extends JFrame{
 		
 		MainClass gui = new MainClass();
 		gui.setVisible(true);
+		DbConn dbConn = new DbConn();
+		dbConn.closeConn();
 	}
 }
