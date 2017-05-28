@@ -256,7 +256,6 @@ public class MainClass extends JFrame{
 	    	booksDb[books] = new Book( title.getText(), author.getText(), genre.getText(), Integer.parseInt(pages.getText()));
 	    	DbConn dbConn = new DbConn();
 	    	dbConn.addBook(booksDb[books]);
-	    	
 	    	++books;
 
 	    	}
