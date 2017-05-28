@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
 public class MainClass extends JFrame{
 	
 	//Max rows in tables and arrays
-	final static int MAX_QTY = 5; 
+	final static int MAX_QTY = 100; 
 	
 	//counters for table rows
 	static int books = 0;
@@ -47,6 +47,9 @@ public class MainClass extends JFrame{
 	static JButton btnAddBook, btnAddCustomer, btnAddLoan;
 	static JLabel info, lblBooks;
 	static MyEventHandler commandHandler;
+	private JScrollPane scrollPane;
+	private JScrollPane scrollPane_1;
+	private JScrollPane scrollPane_2;
 	public MainClass() {
 		setTitle("Library Manager 3000");
 		
@@ -80,15 +83,18 @@ public class MainClass extends JFrame{
 		lblBooks.setBounds(26, 141, 56, 16);
 		getContentPane().add(lblBooks);
 		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(26, 163, 273, 118);
+		getContentPane().add(scrollPane_1);
+		
 		tableBooks = new JTable();
+		scrollPane_1.setViewportView(tableBooks);
 		tableBooks.setModel(new DefaultTableModel(
 			new Object[MAX_QTY][4], 
 			new String[] {"Title", "Author", "Genre", "Pages"} 
 		));
 		
 		tableBooks.setEnabled(false);
-		tableBooks.setBounds(26, 163, 240, 80); 
-		getContentPane().add(tableBooks);
 		
 		/*
 		 * Customers label and table
@@ -97,17 +103,19 @@ public class MainClass extends JFrame{
 		JLabel lblCustomers = new JLabel("Customers");
 		lblCustomers.setBounds(309, 141, 120, 16);
 		getContentPane().add(lblCustomers);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(309, 163, 203, 118);
+		getContentPane().add(scrollPane);
 
 		tableCustomers = new JTable();
+		scrollPane.setViewportView(tableCustomers);
 		tableCustomers.setModel(new DefaultTableModel(
 			new Object[MAX_QTY][2],
 			new String[] {"Firstname", "Lastname"}
 		));
 		
 		tableCustomers.setEnabled(false);
-		tableCustomers.setBounds(309, 163, 160, 80);
-		
-		getContentPane().add(tableCustomers);
 		
 		
 		/*
@@ -118,19 +126,21 @@ public class MainClass extends JFrame{
 		lblNewLabel.setBounds(26, 292, 46, 14);
 		getContentPane().add(lblNewLabel);
 		
+		scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(26, 317, 486, 133);
+		getContentPane().add(scrollPane_2);
+		
 		tableLoans = new JTable();
+		scrollPane_2.setViewportView(tableLoans);
 		tableLoans.setModel(new DefaultTableModel(
 			new Object[MAX_QTY][3],
 			new String[] {"book", "customer", "date"}
 		));
 		tableLoans.setEnabled(false);
-		tableLoans.setBounds(26, 317, 440, 80);
 		
 		tableLoans.getColumnModel().getColumn(0).setPreferredWidth(180);
 		tableLoans.getColumnModel().getColumn(1).setPreferredWidth(180);
 		tableLoans.getColumnModel().getColumn(2).setPreferredWidth(80);
-		
-		getContentPane().add(tableLoans);
 		
 		//Event handler
 		MyEventHandler commandHandler = new MyEventHandler();
@@ -287,9 +297,13 @@ public class MainClass extends JFrame{
 	    int result = JOptionPane.showConfirmDialog(null, myPanel, "Enter info for new book", JOptionPane.OK_CANCEL_OPTION);
 	    
 	    if (result == JOptionPane.OK_OPTION) {
-	    	customerDb[customers] = new Customer( firstName.getText(), lastName.getText()) ;	
+	    	customerDb[customers] = new Customer( firstName.getText(), lastName.getText()) ;
+	    	DbConn dbConn = new DbConn();
+	    	dbConn.addCustomer(customerDb[customers]);
 	    	++customers;
 	    }
+	    
+
 	}
 	
 	/*

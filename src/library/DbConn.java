@@ -32,7 +32,7 @@ public class DbConn {
 			getBooks = conn.prepareStatement("SELECT * FROM books"); 
 			addBook = conn.prepareStatement("INSERT INTO books VALUES (default,?,?,?,?)");
 			
-			getCustomers = conn.prepareStatement("SELECT * FROM custemers"); 
+			getCustomers = conn.prepareStatement("SELECT * FROM customers"); 
 			addCustomer = conn.prepareStatement("INSERT INTO customers VALUES (default,?,?)");
 			
 		}
@@ -76,6 +76,8 @@ public class DbConn {
 			sqlException.printStackTrace();
 		}	
 }
+	
+	
 	
 	public void closeConn(){
 		try {
