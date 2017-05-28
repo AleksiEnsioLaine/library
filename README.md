@@ -6,10 +6,12 @@ Please follow these setup instruction.
 
 
 1
+
 Download source and run it with eclipse
 or compile it yourself. 
 
 2
+
 Install and configure xampp for local sql database. 
 
 Program uses default xampp sql login:
@@ -19,4 +21,5 @@ password:
 Login credentials can be found in DbConn class if you need to change them.
 
 3
+
 play
