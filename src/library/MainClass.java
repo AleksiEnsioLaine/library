@@ -254,7 +254,11 @@ public class MainClass extends JFrame{
 	    	}
 	    	else {
 	    	booksDb[books] = new Book( title.getText(), author.getText(), genre.getText(), Integer.parseInt(pages.getText()));
+	    	DbConn dbConn = new DbConn();
+	    	dbConn.addBook(booksDb[books]);
+	    	
 	    	++books;
+
 	    	}
 	    }
 	    
@@ -352,9 +356,10 @@ public class MainClass extends JFrame{
 
 	public static void main(String[] args) {
 		
+		
+		
 		MainClass gui = new MainClass();
 		gui.setVisible(true);
-		DbConn dbConn = new DbConn();
-		dbConn.closeConn();
+		//dbConn.closeConn();
 	}
 }

@@ -30,10 +30,10 @@ public class DbConn {
 			
 			//prepare statements
 			getBooks = conn.prepareStatement("SELECT * FROM books"); 
-			addBook = conn.prepareStatement("INSERT INTO books VALUES (?,?,?,?)");
+			addBook = conn.prepareStatement("INSERT INTO books VALUES (default,?,?,?,?)");
 			
 			getCustomers = conn.prepareStatement("SELECT * FROM custemers"); 
-			addCustomer = conn.prepareStatement("INSERT INTO customers VALUES (?,?)");
+			addCustomer = conn.prepareStatement("INSERT INTO customers VALUES (default,?,?)");
 			
 		}
 		//if something goes sideways throw error at it
@@ -54,7 +54,7 @@ public class DbConn {
 			addBook.setString(3, book.genre);
 			addBook.setInt(4, book.pages);
 			
-			addBook.executeUpdate(); 
+			int result = addBook.executeUpdate(); 
 		}
 		
 		catch (SQLException sqlException) {
